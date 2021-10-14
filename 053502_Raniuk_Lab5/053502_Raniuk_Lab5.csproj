@@ -43,8 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Service.cs" />
+    <Compile Include="Tariff.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Menu.cs" />
-    <Compile Include="Interface1.cs" />
+    <Compile Include="ICustomCollextion.cs" />
     <Compile Include="Collections.cs" />
     <Compile Include="Entities.cs" />
     <Compile Include="Program.cs" />

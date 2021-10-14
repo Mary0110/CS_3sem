@@ -12,8 +12,7 @@ namespace _053502_Raniuk_Lab5
         MyCustomCollections<Person> PList = new MyCustomCollections<Person>();
         MyCustomCollections<(Person,Service)> SList = new MyCustomCollections<(Person, Service)>();
 
-
-        public class Person: IEquatable<Person>
+        /*public class Person: IEquatable<Person>
         {
             public Person(string surname)
             {
@@ -76,7 +75,7 @@ namespace _053502_Raniuk_Lab5
                 }
             }
         }
-        
+        */
         public void AddTariffToList(string name, float cost)
         {
             Tariff t = new Tariff(name, cost);

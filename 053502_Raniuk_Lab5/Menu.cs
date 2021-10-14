@@ -34,7 +34,9 @@ namespace _053502_Raniuk_Lab5
             }
             return str;
         }
+
         Entities g = new Entities();
+
         private void AddPeople()
         {
             do
@@ -46,6 +48,7 @@ namespace _053502_Raniuk_Lab5
                 Console.WriteLine("Press 1 to continue input, other key - exit");
             } while (Console.ReadLine() == "1");
         }
+
         private void AddTariffPlan()
         {
             do
@@ -71,6 +74,7 @@ namespace _053502_Raniuk_Lab5
             do
             {
                 string sur;
+
                 do
                 {
                     Console.WriteLine("Enter surname:");
@@ -78,6 +82,7 @@ namespace _053502_Raniuk_Lab5
                 } while (g.SearchP(sur) == default);
 
                 string name;
+
                 do
                 {
                    Console.WriteLine("Enter service name:");
@@ -85,27 +90,31 @@ namespace _053502_Raniuk_Lab5
                 } while (g.SearchT(name) == default);
 
                 float amount;
+
                 do
                 {
                     Console.WriteLine("Enter amount of consumed services:");
                     string str = Console.ReadLine();
                     float.TryParse(str, out amount);
                 } while (amount < 0);
+
                 g.AddServiceToList(name, amount, sur);
                 Console.WriteLine("Press 1 to continue input, other key - exit");
             } while (Console.ReadLine() == "1");
         }
+
         private void DisplayBySurname()
         {
             do
             { 
-            Console.WriteLine("Enter surname:");
-            string sur = Console.ReadLine();
-            float sum = g.SumBySurname(sur);
-            Console.WriteLine($"The sum of service is {sum}");;
-            Console.WriteLine("Press 1 to continue input, other key - exit");
+                Console.WriteLine("Enter surname:");
+                string sur = Console.ReadLine();
+                float sum = g.SumBySurname(sur);
+                Console.WriteLine($"The sum of service is {sum}");;
+                Console.WriteLine("Press 1 to continue input, other key - exit");
             } while (Console.ReadLine() == "1");
         }
+
         private void DisplayWholeSum()
         {
             do
@@ -115,6 +124,7 @@ namespace _053502_Raniuk_Lab5
                 Console.WriteLine("Press 1 to continue input, other key - exit");
             } while (Console.ReadLine() == "1");
         }
+
         public void Run()
         {
             bool endApp = false;
