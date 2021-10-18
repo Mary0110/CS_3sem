@@ -10,7 +10,9 @@ namespace _053502_Raniuk_Lab5
     {
         static void Main(string[] args)
         {
-            Menu m1 = new Menu();
+            HousingMaintainanceService HMS = new HousingMaintainanceService();
+            Journal j1 = new Journal();
+            Menu m1 = new Menu(HMS, j1);
             m1.Run();
         }
     }

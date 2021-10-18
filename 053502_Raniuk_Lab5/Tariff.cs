@@ -34,10 +34,7 @@ namespace _053502_Raniuk_Lab5
             if (other == null)
                 return false;
 
-            if (this._tariffName == other._tariffName)
-                return true;
-            else
-                return false;
+            return this._tariffName == other._tariffName;            
         }
     }
 }
