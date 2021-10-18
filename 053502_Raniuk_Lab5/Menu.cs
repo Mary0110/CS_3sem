@@ -35,7 +35,11 @@ namespace _053502_Raniuk_Lab5
             return str;
         }
 
-        Entities g = new Entities();
+        public HousingMaintainanceService g { get; set; }
+        public Menu(HousingMaintainanceService HMS)
+        {
+            g = HMS;
+        }
 
         private void AddPeople()
         {
@@ -99,6 +103,7 @@ namespace _053502_Raniuk_Lab5
                 } while (amount < 0);
 
                 g.AddServiceToList(name, amount, sur);
+                g.AddService(name, amount);
                 Console.WriteLine("Press 1 to continue input, other key - exit");
             } while (Console.ReadLine() == "1");
         }
@@ -135,33 +140,28 @@ namespace _053502_Raniuk_Lab5
                 Console.WriteLine("\t3 - add services");
                 Console.WriteLine("\t4 - display service cost by surname");
                 Console.WriteLine("\t5 - display total cost");
-                Console.WriteLine("6 - exit");
+                Console.WriteLine("\t6 - exit");
                 string s = Console.ReadLine();
-                bool TListCompl = false;
-                bool PListCompl = false;
                 switch (s)
                 {
                     case "1":
                         {
                             AddPeople();
-                            PListCompl = true;
                         }
                         break;
                     case "2":
                         {
                             AddTariffPlan();
-                            TListCompl = true;
-
                         }
                         break;
                     case "3":
                         {
-                            if(!PListCompl)
+                            if(g.PIsEmpty())
                             {
                                 Console.WriteLine("List of tenants is empty.");
                                 AddPeople();
                             }
-                            if(!TListCompl)
+                            if(g.TIsEmpty())
                             {
                                 Console.WriteLine("Tariff plan is not completed.");
                                 AddTariffPlan();

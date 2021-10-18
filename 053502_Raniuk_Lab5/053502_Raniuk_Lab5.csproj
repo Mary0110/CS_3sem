@@ -43,13 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Node.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="Tariff.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Menu.cs" />
-    <Compile Include="ICustomCollextion.cs" />
-    <Compile Include="Collections.cs" />
-    <Compile Include="Entities.cs" />
+    <Compile Include="ICustomCollection.cs" />
+    <Compile Include="MyCustomCollections.cs" />
+    <Compile Include="HousingMaintainanceService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

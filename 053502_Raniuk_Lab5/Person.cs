@@ -18,12 +18,8 @@ namespace _053502_Raniuk_Lab5
             if (other == null)
                 return false;
 
-            if (this._surname == other._surname)
-                return true;
-            else
-                return false;
+            return this._surname == other._surname;     
         }
     }
-
 }
 
