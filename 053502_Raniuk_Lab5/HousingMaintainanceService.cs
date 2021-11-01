@@ -10,21 +10,19 @@ namespace _053502_Raniuk_Lab5
     {
         MyCustomCollections<Tariff> TList = new MyCustomCollections<Tariff>();
         MyCustomCollections<Person> PList = new MyCustomCollections<Person>();
-        MyCustomCollections<(Person, Service)> PSList = new MyCustomCollections<(Person, Service)>();
+        MyCustomCollections<(Person,Service)> PSList = new MyCustomCollections<(Person, Service)>();
         MyCustomCollections<Service> SList = new MyCustomCollections<Service>();
-
+        
         public void AddTariffToList(string name, float cost)
         {
             Tariff t = new Tariff(name, cost);
             TList.Add(t);
-            OnListChanged(t._tariffName);
         }
 
         public void AddPersonToList(string name)
         {
             Person p = new Person(name);
             PList.Add(p);
-            OnListChanged(p._surname);
         }
 
         public void AddService(string serviceName, float amount)
@@ -49,7 +47,6 @@ namespace _053502_Raniuk_Lab5
                 float total = cost * amount;
                 Service s = new Service(serviceName, total);
                 PSList.Add((pers, s));
-                OnListChanged(s._name + pers._surname);
             }
         }
 
@@ -94,7 +91,7 @@ namespace _053502_Raniuk_Lab5
             for (int i = 0; i < PSList.Count; i++)
             {
                 price += PSList[i].Item2._total_price;
-            }
+            }   
             return price;
         }
 
@@ -112,14 +109,6 @@ namespace _053502_Raniuk_Lab5
                 return true;
             else
                 return false;
-        }
-
-       // public delegate void ChangedListEventHandler(object sourse, MyEventArgs e);
-        public event EventHandler<MyEventArgs> ListChanged;
-        protected virtual void OnListChanged(string name)
-        {
-            if (ListChanged != null)
-                ListChanged(this, new MyEventArgs() { Name = name + "list changed event"});
         }
     }
 }

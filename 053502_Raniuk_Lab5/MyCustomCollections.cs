@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace _053502_Raniuk_Lab5
 {
+
     public class MyCustomCollections<T>: ICustomCollection<T>
         where T: IEquatable<T>
     {
@@ -21,16 +22,8 @@ namespace _053502_Raniuk_Lab5
         {
             get
             {
-                try
-                {
-                    if (index < 0 || index >= Count)
-                        throw new IndexOutOfRangeException("Invalid index input");
-                }
-                catch(IndexOutOfRangeException e)
-                {
-                    Console.WriteLine($"Index out of range exception handler:{e}");
-                }
-
+                if (index < 0 || index >= Count)
+                  throw new IndexOutOfRangeException("Invalid index input");
                 Node<T> current = this.Head;
                 for (int i = 0; i <= Count; i++)
                 {
@@ -45,17 +38,8 @@ namespace _053502_Raniuk_Lab5
                 Node<T> current = this.Head;
                 Node<T> newNode = new Node<T>(value);
 
-                try
-                {
-                    if (index < 0 || index > Count)
-                        throw new IndexOutOfRangeException("Invalid index setting");
-                }
-                catch (IndexOutOfRangeException e)
-                {
-                    Console.WriteLine($"Index out of range exception handler:{e}");
-                }
-
-
+                if (index < 0 || index > Count)
+                    throw new IndexOutOfRangeException("Invalid index");
                 if (index == 0)
                 {
                     newNode.next = current;
@@ -67,6 +51,7 @@ namespace _053502_Raniuk_Lab5
                     for(int i = 0; i < Count-1; i++)
                     {
                         current = current.next;
+                       // Console.WriteLine("aaaaaaaaaa"+ current._data);
                     }
                     newNode.next = null;
                     current.next = newNode;
@@ -103,36 +88,20 @@ namespace _053502_Raniuk_Lab5
         public void Remove(T item)
         {
             Node<T> current = this.Head;
-
-            int first_size = Count;
-
-            if (current.Compare(item))
+            for (int i = 0; i < Count - 1; i++)
             {
-                this.Head = current.next;
-                Count--;
-            }
-            else
-            {
-                for (int i = 0; i < first_size - 1; i++)
+                if (i == 0 && current.Compare(item) == true)
                 {
-                     if (current.next.Compare(item) == true)
-                     {
-                        current.next = current.next.next;
-                        Count--;
-                        break;
-                     }
-                    current = current.next;
+                    this.Head = current.next;
+                    Count--;
+                    break;
                 }
-            }
-            try
-            {
-
-                if (Count == first_size)
-                    throw new ListElementNotFoundException("There is no such item!");
-            }
-            catch(ListElementNotFoundException e)
-            {
-                Console.WriteLine($"Element not found exception {e}");
+                else if (current.next.Compare(item) == true)
+                {
+                    current.next = current.next.next;
+                    Count--;
+                    break;
+                }
             }
         }
        public T RemoveCurrent() 
