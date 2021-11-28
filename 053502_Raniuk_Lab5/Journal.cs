@@ -9,7 +9,7 @@ namespace _053502_Raniuk_Lab5
     class Journal
     {
         MyCustomCollections<MyEventArgs> EList = new MyCustomCollections<MyEventArgs>();
-        public void print()
+        public void Print()
         {
             for(int i = 0; i < EList.Count; i++)
             {

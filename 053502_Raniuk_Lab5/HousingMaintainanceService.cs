@@ -17,12 +17,15 @@ namespace _053502_Raniuk_Lab5
         {
             Tariff t = new Tariff(name, cost);
             TList.Add(t);
+            OnListChanged(t._tariffName);
+
         }
 
         public void AddPersonToList(string name)
         {
             Person p = new Person(name);
             PList.Add(p);
+            OnListChanged(p._surname);
         }
 
         public void AddService(string serviceName, float amount)
@@ -34,6 +37,7 @@ namespace _053502_Raniuk_Lab5
                 float total = cost * amount;
                 Service s = new Service(serviceName, total);
                 SList.Add((s));
+                OnListChanged(s._name);
             }
         }
 
@@ -47,6 +51,7 @@ namespace _053502_Raniuk_Lab5
                 float total = cost * amount;
                 Service s = new Service(serviceName, total);
                 PSList.Add((pers, s));
+                OnListChanged(pers._surname + " " + s._name);
             }
         }
 
@@ -109,6 +114,13 @@ namespace _053502_Raniuk_Lab5
                 return true;
             else
                 return false;
+        }
+
+        public event EventHandler<MyEventArgs> ListChanged;
+
+        protected virtual void OnListChanged(string name)
+        {
+            ListChanged?.Invoke(this, new MyEventArgs() { Name = name + " list changed event" });
         }
     }
 }

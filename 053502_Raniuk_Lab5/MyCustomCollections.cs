@@ -22,8 +22,16 @@ namespace _053502_Raniuk_Lab5
         {
             get
             {
-                if (index < 0 || index >= Count)
-                  throw new IndexOutOfRangeException("Invalid index input");
+                try
+                {
+                    if (index < 0 || index >= Count)
+                        throw new IndexOutOfRangeException("Invalid index input");
+                }
+                catch(IndexOutOfRangeException e)
+                {
+                    Console.WriteLine($"Index out of range exception handler:{e}");
+                }
+
                 Node<T> current = this.Head;
                 for (int i = 0; i <= Count; i++)
                 {
@@ -38,8 +46,16 @@ namespace _053502_Raniuk_Lab5
                 Node<T> current = this.Head;
                 Node<T> newNode = new Node<T>(value);
 
-                if (index < 0 || index > Count)
-                    throw new IndexOutOfRangeException("Invalid index");
+                try
+                {
+                    if (index < 0 || index > Count)
+                        throw new IndexOutOfRangeException("Invalid index");
+                }
+                catch(IndexOutOfRangeException e)
+                {
+                    Console.WriteLine($"Index out of range exception handler:{e}");
+                }
+
                 if (index == 0)
                 {
                     newNode.next = current;
@@ -51,7 +67,6 @@ namespace _053502_Raniuk_Lab5
                     for(int i = 0; i < Count-1; i++)
                     {
                         current = current.next;
-                       // Console.WriteLine("aaaaaaaaaa"+ current._data);
                     }
                     newNode.next = null;
                     current.next = newNode;
@@ -87,22 +102,38 @@ namespace _053502_Raniuk_Lab5
         public void Add(T item) { this[Count] = item; }
         public void Remove(T item)
         {
-            Node<T> current = this.Head;
-            for (int i = 0; i < Count - 1; i++)
+            try
             {
-                if (i == 0 && current.Compare(item) == true)
+                bool found = false;
+                Node<T> current = this.Head;
+                if (current.Compare(item))
                 {
                     this.Head = current.next;
                     Count--;
-                    break;
+                    found = true;
                 }
-                else if (current.next.Compare(item) == true)
+                else
                 {
-                    current.next = current.next.next;
-                    Count--;
-                    break;
+                    for (int i = 0; i < Count - 1; i++)
+                    {
+                        if (current.next.Compare(item))
+                        {
+                            current.next = current.next.next;
+                            found = true;
+                            Count--;
+                            break;
+                        }
+                        current = current.next;
+                    }
                 }
+
+                if (!found)
+                    throw new ListElementNotFoundException("Element not found");
             }
+            catch(ListElementNotFoundException e1)
+            {
+                Console.WriteLine($"Exception handler: {e1}");
+            }  
         }
        public T RemoveCurrent() 
        {

@@ -12,7 +12,12 @@ namespace _053502_Raniuk_Lab5
         {
             HousingMaintainanceService HMS = new HousingMaintainanceService();
             Journal j1 = new Journal();
+
+            HMS.ListChanged += j1.OnListChanged;
+
             Menu m1 = new Menu(HMS, j1);
+
+            
             m1.Run();
         }
     }

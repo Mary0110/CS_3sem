@@ -35,13 +35,13 @@ namespace _053502_Raniuk_Lab5
             return str;
         }
 
-        public HousingMaintainanceService g { get; set; }
-        public Journal g1 { get; set; }
+        public HousingMaintainanceService hms { get; set; }
+        public Journal journal { get; set; }
 
         public Menu(HousingMaintainanceService HMS, Journal j)
         {
-            g = HMS;
-            g1 = j;
+            hms = HMS;
+            journal = j;
         }
 
         private void AddPeople()
@@ -51,7 +51,7 @@ namespace _053502_Raniuk_Lab5
                 Console.WriteLine("Enter tenant's surname:");
                 string str = Console.ReadLine();
                 string sur = CheckInput(str);
-                g.AddPersonToList(sur);
+                hms.AddPersonToList(sur);
                 Console.WriteLine("Press 1 to continue input, other key - exit");
             } while (Console.ReadLine() == "1");
         }
@@ -71,7 +71,7 @@ namespace _053502_Raniuk_Lab5
                     float.TryParse(str, out cost);
                 } while (cost < 0 || cost > 1000);
 
-                g.AddTariffToList(name, cost);
+                hms.AddTariffToList(name, cost);
                 Console.WriteLine("Press 1 to continue input, other key - exit");
             } while (Console.ReadLine() == "1");
         }
@@ -86,7 +86,7 @@ namespace _053502_Raniuk_Lab5
                 {
                     Console.WriteLine("Enter surname:");
                     sur = Console.ReadLine();
-                } while (g.SearchP(sur) == default);
+                } while (hms.SearchP(sur) == default);
 
                 string name;
 
@@ -94,7 +94,7 @@ namespace _053502_Raniuk_Lab5
                 {
                    Console.WriteLine("Enter service name:");
                  name = Console.ReadLine(); 
-                } while (g.SearchT(name) == default);
+                } while (hms.SearchT(name) == default);
 
                 float amount;
 
@@ -105,8 +105,8 @@ namespace _053502_Raniuk_Lab5
                     float.TryParse(str, out amount);
                 } while (amount < 0);
 
-                g.AddServiceToList(name, amount, sur);
-                g.AddService(name, amount);
+                hms.AddServiceToList(name, amount, sur);
+                hms.AddService(name, amount);
                 Console.WriteLine("Press 1 to continue input, other key - exit");
             } while (Console.ReadLine() == "1");
         }
@@ -117,7 +117,7 @@ namespace _053502_Raniuk_Lab5
             { 
                 Console.WriteLine("Enter surname:");
                 string sur = Console.ReadLine();
-                float sum = g.SumBySurname(sur);
+                float sum = hms.SumBySurname(sur);
                 Console.WriteLine($"The sum of service is {sum}");;
                 Console.WriteLine("Press 1 to continue input, other key - exit");
             } while (Console.ReadLine() == "1");
@@ -127,7 +127,8 @@ namespace _053502_Raniuk_Lab5
         {
             do
             {
-                float sum = g.WholeSum();
+                float sum = hms.WholeSum();
+                journal.Print();
                 Console.WriteLine($"The sum of all services is {sum}");
                 Console.WriteLine("Press 1 to continue input, other key - exit");
             } while (Console.ReadLine() == "1");
@@ -149,39 +150,29 @@ namespace _053502_Raniuk_Lab5
                 {
                     case "1":
                         {
-
-                            g.ListChanged += g1.OnListChanged;
                             AddPeople();
-                            g.ListChanged -= g1.OnListChanged;
                         }
                         break;
                     case "2":
                         {
-                            g.ListChanged += g1.OnListChanged;
                             AddTariffPlan();
-                            g.ListChanged -= g1.OnListChanged;
                         }
                         break;
                     case "3":
                         {
-                            if(g.PIsEmpty())
+                            if(hms.PIsEmpty())
                             {
                                 Console.WriteLine("List of tenants is empty.");
-                                g.ListChanged += g1.OnListChanged;
                                 AddPeople();
-                                g.ListChanged -= g1.OnListChanged;
                             }
-                            if(g.TIsEmpty())
+                            if(hms.TIsEmpty())
                             {
                                 Console.WriteLine("Tariff plan is not completed.");
-                                g.ListChanged += g1.OnListChanged;
-                                AddTariffPlan();
-                                g.ListChanged -= g1.OnListChanged;
-                               
+                                AddTariffPlan();                               
                             }
-                            g.ListChanged += (o, e) => { Console.WriteLine(e.Name); };
+                            hms.ListChanged += (o, e) => { Console.WriteLine(e.Name); };
                             AddServices();
-                            g.ListChanged -= (o, e) => { Console.WriteLine(e.Name); };
+                            hms.ListChanged -= (o, e) => { Console.WriteLine(e.Name); };
 
                         }
                         break;
